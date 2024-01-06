@@ -31,36 +31,36 @@ public class ExceptionHandlerAdvice {
     return new ResponseEntity<>(response, HttpStatus.valueOf(ex.getStatus()));
   }
 
-//  @ExceptionHandler(NotFoundException.class)
-//  @ResponseStatus(HttpStatus.NOT_FOUND)
-//  public ResponseEntity<Map<String, Object>> handleNotFoundException(NotFoundException ex) {
-//    Map<String, Object> response = new HashMap<>();
-//    response.put("code", ex.getCode());
-//    response.put("message", ex.getMessage());
-//    response.put("status", ex.getStatus());
-//    response.put("params", ex.getParams());
-//    return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-//  }
-
-  @ExceptionHandler(Exception.class)
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public ResponseEntity<Map<String, Object>> handleException(Exception ex) {
-    Map<String, Object> response = new HashMap<>();
-    response.put("code", "INTERNAL_SERVER_ERROR");
-    response.put("message", "Internal Server Error");
-    response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-    return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-  }
-  @ExceptionHandler(BaseException.class)
-  public ResponseEntity<ErrorResponse> handleBaseException(BaseException ex, Locale locale) {
-    return getError(ex, locale);
-  }
-
   @ExceptionHandler(NotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex, Locale locale) {
-    return getError(ex, locale);
+  public ResponseEntity<Map<String, Object>> handleNotFoundException(NotFoundException ex) {
+    Map<String, Object> response = new HashMap<>();
+    response.put("code", ex.getCode());
+    response.put("message", ex.getMessage());
+    response.put("status", ex.getStatus());
+    response.put("params", ex.getParams());
+    return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
   }
+
+//  @ExceptionHandler(Exception.class)
+//  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//  public ResponseEntity<Map<String, Object>> handleException(Exception ex) {
+//    Map<String, Object> response = new HashMap<>();
+//    response.put("code", "INTERNAL_SERVER_ERROR");
+//    response.put("message", "Internal Server Error");
+//    response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+//    return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//  }
+//  @ExceptionHandler(BaseException.class)
+//  public ResponseEntity<ErrorResponse> handleBaseException(BaseException ex, Locale locale) {
+//    return getError(ex, locale);
+//  }
+//
+//  @ExceptionHandler(NotFoundException.class)
+//  @ResponseStatus(HttpStatus.NOT_FOUND)
+//  public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex, Locale locale) {
+//    return getError(ex, locale);
+//  }
 
   public ResponseEntity<ErrorResponse> getError(BaseException ex, Locale locale) {
     Error error = new Error(ex.getCode(), ex.getMessage());
