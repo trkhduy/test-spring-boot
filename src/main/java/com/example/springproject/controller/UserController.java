@@ -11,8 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.springproject.constant.Constants.CommonConstants.DEFAULT_LANGUAGE;
-import static com.example.springproject.constant.Constants.CommonConstants.LANGUAGE;
+import static com.example.springproject.constant.Constants.CommonConstants.*;
 import static com.example.springproject.constant.Constants.MessageCode.*;
 
 @RestController

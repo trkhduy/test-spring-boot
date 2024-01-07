@@ -1,4 +1,4 @@
-package com.example.springproject.exception.advice;
+package com.example.springproject.controller.advice;
 
 import com.example.springproject.dto.base.ResponseGeneral;
 import com.example.springproject.exception.base.BadRequestException;

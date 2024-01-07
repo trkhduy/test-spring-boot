@@ -10,18 +10,18 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends BaseRepository<User> {
   @Query(
         """
-                      select new com.example.springproject.dto.response.UserResponse
-                      (u.id, u.username,u.password,u.email,u.phone,u.role)
-                      from User u
-                      where u.id=:id
+              select new com.example.springproject.dto.response.UserResponse
+              (u.id, u.username,u.password,u.email,u.phone,u.role)
+              from User u
+              where u.id=:id
               """
   )
   UserResponse getByUserId(String id);
 
   @Query("""
-         select new com.example.springproject.dto.response.UserResponse
-         (u.id, u.username,u.password,u.email,u.phone,u.role)
-        from User u
+             select new com.example.springproject.dto.response.UserResponse
+             (u.id, u.username,u.password,u.email,u.phone,u.role)
+             from User u
          """)
   Page<UserResponse> findAllShipment(Pageable pageable);
 
