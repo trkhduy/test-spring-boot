@@ -8,9 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-import java.util.Locale;
-import java.util.Map;
-
 @Data
 @AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
@@ -36,4 +33,5 @@ public class ResponseGeneral<T> {
   public static <T> ResponseGeneral<T> ofSuccess(String message, T data) {
     return of(HttpStatus.OK.value(), message, data, DateUtils.getCurrentDateString());
   }
+
 }

@@ -13,11 +13,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 @Configuration
 public class SecurityConfig {
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        return http.authorizeHttpRequests(s -> s.anyRequest().permitAll()).csrf(csrf->csrf.disable()).
-//                build();
-//    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
