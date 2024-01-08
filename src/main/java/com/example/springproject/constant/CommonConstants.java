@@ -1,5 +1,8 @@
 package com.example.springproject.constant;
 
+/**
+ * This contains Common Constants
+ */
   public class CommonConstants {
     public static final String ENCODING_UTF_8 = "UTF-8";
     public static final String LANGUAGE = "Accept-Language";

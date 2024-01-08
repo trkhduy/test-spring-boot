@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class MapperUtils {
 
-  private MapperUtils() {}
+  private MapperUtils() {} 
 
   public static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
