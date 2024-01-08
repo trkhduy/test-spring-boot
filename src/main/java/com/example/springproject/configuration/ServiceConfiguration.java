@@ -10,6 +10,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * This class define all service component in application
+ */
 @Configuration
 public class ServiceConfiguration {
   @Bean

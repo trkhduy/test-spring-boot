@@ -8,9 +8,12 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 
 import static com.example.springproject.constant.Constants.CommonConstants.MESSAGE_SOURCE;
 
-
+/**
+ * This class config a MessageSource bean
+ */
 @Configuration
 public class MessageSourceConfiguration {
+
 
   @Bean
   public MessageSource messageSource() {

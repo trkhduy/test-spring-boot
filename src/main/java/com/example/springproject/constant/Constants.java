@@ -1,5 +1,7 @@
 package com.example.springproject.constant;
-
+//
+// This class contains constants
+//
 public class Constants {
 
   public static class CommonConstants {
