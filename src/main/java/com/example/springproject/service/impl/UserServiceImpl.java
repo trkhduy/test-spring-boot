@@ -45,7 +45,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
           request.getPhone(),
           request.getRole()
     );
-//    user.setId("ok");
     this.create(user);
     return new UserResponse(
           user.getId(),

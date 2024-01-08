@@ -3,6 +3,7 @@ package com.example.springproject.controller.advice;
 import com.example.springproject.dto.base.ResponseGeneral;
 import com.example.springproject.exception.base.BadRequestException;
 import com.example.springproject.exception.base.BaseException;
+import com.example.springproject.exception.base.ConflictException;
 import com.example.springproject.exception.base.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.Locale;
 import java.util.Map;
+
+import static com.example.springproject.constant.ExceptionCode.GENERIC_CODE;
+
 @RestControllerAdvice
 @ControllerAdvice
 public class ExceptionHandlerAdvice {
@@ -44,6 +48,20 @@ public class ExceptionHandlerAdvice {
     String message = getMessage(ex.getCode(), locale, ex.getParams());
     ResponseGeneral<Object> response = ResponseGeneral.of(ex.getStatus(), message, null);
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
+  @ExceptionHandler(ConflictException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  public ResponseEntity<ResponseGeneral<Object>> handleConflictException(ConflictException ex, Locale locale) {
+    String message = getMessage(ex.getCode(), locale, ex.getParams());
+    ResponseGeneral<Object> response = ResponseGeneral.of(ex.getStatus(), message, null);
+    return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+  }
+  @ExceptionHandler(RuntimeException.class)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  public ResponseEntity<ResponseGeneral<Object>> handleGenericException(Locale locale) {
+    String message = getMessage(GENERIC_CODE, locale, null);
+    ResponseGeneral<Object> response = ResponseGeneral.of(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, null);
+    return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   private String getMessage(String code, Locale locale, Map<String, String> params) {
