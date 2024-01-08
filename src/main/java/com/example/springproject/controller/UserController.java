@@ -27,29 +27,54 @@ public class UserController {
         @PathVariable String id,
         @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
   ) {
+    log.info("(getById) id : {}", id);
     return ResponseGeneral.ofSuccess(messageService.getMessage(GET_USER_BY_ID, language),
           userService.getById(id));
   }
+
   @PostMapping
   public ResponseGeneral<UserResponse> create(
         @RequestBody UserRequest request,
         @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
   ) {
+    log.info("(create) Request : {}", request);
     return ResponseGeneral.ofCreated(messageService.getMessage(CREATE_USER, language),
           userService.create(request));
   }
 
-  @GetMapping
-  public ResponseGeneral<PageResponse<UserResponse>> list(
+  @GetMapping("/search")
+  public ResponseGeneral<PageResponse<UserResponse>> getUserBySearch(
         @RequestParam(name = "keyword", required = false) String keyword,
         @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
         @RequestParam(name = "page", defaultValue = DEFAULT_PAGE_NUMBER) int page,
-        @RequestParam(name = "all", defaultValue = "false", required = false) boolean isAll,
         @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
   ) {
-    log.info("(list) keyword: {}, size : {}, page: {}, isAll: {}", keyword, size, page, isAll);
+    log.info("(listSearchUser) keyword: {}, size : {}, page: {}", keyword, size, page);
     return ResponseGeneral.ofSuccess(messageService.getMessage(LIST_USER, language),
-          userService.list(keyword, size, page, isAll)
+          userService.getUserBySearch(keyword, size, page)
     );
   }
+
+  @GetMapping("/all")
+  public ResponseGeneral<PageResponse<UserResponse>> getAllUser(
+        @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
+        @RequestParam(name = "page", defaultValue = DEFAULT_PAGE_NUMBER) int page,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+    log.info("(listAllUser) size : {}, page: {}", size, page);
+    return ResponseGeneral.ofSuccess(messageService.getMessage(LIST_USER, language),
+          userService.getAllUser(size, page)
+    );
+  }
+
+  @DeleteMapping("{id}")
+  public ResponseGeneral<Void> delete(
+        @PathVariable String id,
+        @RequestHeader(name = LANGUAGE, defaultValue = DEFAULT_LANGUAGE) String language
+  ) {
+    log.info("(delete) id : {}", id);
+    userService.delete(id);
+    return ResponseGeneral.ofSuccess(messageService.getMessage(DELETE_USER, language));
+  }
 }
+

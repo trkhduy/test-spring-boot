@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
@@ -32,12 +33,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
       throw new UserNotFoundException();
   }
 
+  @Transactional
   @Override
   public UserResponse create(UserRequest request) {
     log.info("(request) create: {}", request);
-//    User user = MapperUtils.toEntity(request, User.class);
-//    create(user);
-//    return MapperUtils.toDTO(user, UserResponse.class);
     User user = new User(
           request.getUsername(),
           request.getPassword(),
@@ -56,17 +55,33 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     );
   }
 
+  @Transactional
   @Override
-  public void delete(Long id) {
-
+  public void delete(String id) {
+    log.info("(request) delete id: {}", id);
+    User user = checkUserExist(id);
+    repository.delete(user);
   }
 
   @Override
-  public PageResponse<UserResponse> list(String keyword, int size, int page, boolean isAll) {
-    log.info("(list) keyword: {}, size : {}, page: {}, isAll: {}", keyword, size, page, isAll);
+  public PageResponse<UserResponse> getAllUser(int size, int page) {
+    log.info("(request) listAllUser size : {}, page: {}", size, page);
+
     Pageable pageable = PageRequest.of(page, size);
-    Page<UserResponse> list = isAll ?
-          repository.findAllShipment(pageable) : repository.searchUser(pageable, keyword);
+    Page<UserResponse> listAllUsers = repository.findAllUser(pageable);
+    return PageResponse.of(listAllUsers.getContent(), (int) listAllUsers.getTotalElements());
+  }
+
+  @Override
+  public PageResponse<UserResponse> getUserBySearch(String keyword, int size, int page) {
+    log.info("(request) listSearchUser keyword:{}, size : {}, page: {}", keyword, size, page);
+
+    Pageable pageable = PageRequest.of(page, size);
+    Page<UserResponse> list = repository.searchUser(pageable, keyword);
     return PageResponse.of(list.getContent(), (int) list.getTotalElements());
+  }
+
+  private User checkUserExist(String id) {
+    return repository.findById(id).orElseThrow(UserNotFoundException::new);
   }
 }

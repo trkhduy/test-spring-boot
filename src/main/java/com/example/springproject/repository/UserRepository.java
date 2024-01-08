@@ -6,7 +6,7 @@ import com.example.springproject.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-
+import com.example.springproject.constant.CommonConstants.*;
 public interface UserRepository extends BaseRepository<User> {
   @Query(
         """
@@ -23,7 +23,7 @@ public interface UserRepository extends BaseRepository<User> {
              (u.id, u.username,u.password,u.email,u.phone,u.role)
              from User u
          """)
-  Page<UserResponse> findAllShipment(Pageable pageable);
+  Page<UserResponse> findAllUser(Pageable pageable);
 
   @Query("""
             select new com.example.springproject.dto.response.UserResponse

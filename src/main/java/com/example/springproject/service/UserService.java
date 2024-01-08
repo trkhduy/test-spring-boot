@@ -8,6 +8,8 @@ import com.example.springproject.dto.response.UserResponse;
 public interface UserService {
   UserResponse getById(String id);
   UserResponse create(UserRequest request);
-  void delete(Long id);
-  PageResponse<UserResponse> list (String keyword, int size, int page, boolean isAll);
+  void delete(String id);
+  PageResponse<UserResponse> getAllUser(int size, int page);
+  PageResponse<UserResponse> getUserBySearch(String keyword, int size, int page);
+
 }
