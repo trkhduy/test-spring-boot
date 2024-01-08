@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.example.springproject.constant.CommonConstants.*;
+
 @Data
 public class BaseException extends RuntimeException {
   private String message;
@@ -14,9 +16,9 @@ public class BaseException extends RuntimeException {
   private Map<String, String> params;
 
   public BaseException() {
-    this.status = 0;
-    this.code = "";
-    this.message = "";
+    this.status = DEFAULT_STATUS;
+    this.code = BLANK_CONSTANT;
+    this.message = BLANK_CONSTANT;
     this.params = new HashMap<>();
   }
 

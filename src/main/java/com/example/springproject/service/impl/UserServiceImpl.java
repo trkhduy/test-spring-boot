@@ -8,7 +8,6 @@ import com.example.springproject.exception.UserNotFoundException;
 import com.example.springproject.repository.UserRepository;
 import com.example.springproject.service.UserService;
 import com.example.springproject.service.base.BaseServiceImpl;
-import com.example.springproject.utils.MapperUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,25 +35,26 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
   @Override
   public UserResponse create(UserRequest request) {
     log.info("(request) create: {}", request);
-    User user = MapperUtils.toEntity(request, User.class);
-    create(user);
-    return MapperUtils.toDTO(user, UserResponse.class);
-//    User user = new User(
-//          request.getUsername(),
-//          request.getPassword(),
-//          request.getEmail(),
-//          request.getPhone(),
-//          request.getRole()
-//    );
+//    User user = MapperUtils.toEntity(request, User.class);
 //    create(user);
-//    return new UserResponse(
-//          user.getId(),
-//          user.getUsername(),
-//          user.getPassword(),
-//          user.getEmail(),
-//          user.getPhone(),
-//          user.getRole()
-//    );
+//    return MapperUtils.toDTO(user, UserResponse.class);
+    User user = new User(
+          request.getUsername(),
+          request.getPassword(),
+          request.getEmail(),
+          request.getPhone(),
+          request.getRole()
+    );
+//    user.setId("ok");
+    this.create(user);
+    return new UserResponse(
+          user.getId(),
+          user.getUsername(),
+          user.getPassword(),
+          user.getEmail(),
+          user.getPhone(),
+          user.getRole()
+    );
   }
 
   @Override

@@ -7,7 +7,7 @@ public class DateUtils {
     return LocalDate.now().toString();
   }
 
-  public static Long currentTimeMillis() {
+  public static Long getCurrentTimeMillis() {
     return System.currentTimeMillis();
   }
 }
