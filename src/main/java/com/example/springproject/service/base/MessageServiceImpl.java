@@ -5,6 +5,9 @@ import org.springframework.context.MessageSource;
 
 import java.util.Locale;
 
+/**
+ * Implementation of the MessageService interface that retrieves messages from a MessageSource.
+ */
 @RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {
   private final MessageSource messageSource;

@@ -4,6 +4,11 @@ import com.example.springproject.repository.BaseRepository;
 
 import java.util.List;
 
+/**
+ * Generic implementation of the BaseService interface providing common CRUD operations.
+ *
+ * @param <T> The type of entity managed by the service.
+ */
 public class BaseServiceImpl<T> implements BaseService<T> {
   private final BaseRepository<T> repository;
 

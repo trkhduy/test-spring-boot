@@ -3,6 +3,9 @@ package com.example.springproject.exception.base;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * Utility class containing commonly used HTTP status constants for exception handling.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StatusConstants {
 
