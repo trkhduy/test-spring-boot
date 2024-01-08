@@ -7,7 +7,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
+/**
+ * Repository interface for managing User entities. Extends the BaseRepository interface.
+ */
 public interface UserRepository extends BaseRepository<User> {
+
+  /**
+   * Retrieves a UserResponse by user ID.
+   *
+   * @param id The ID of the user.
+   * @return A UserResponse object containing selected user details.
+   */
   @Query(
         """
               select new com.example.springproject.dto.response.UserResponse
@@ -18,6 +28,12 @@ public interface UserRepository extends BaseRepository<User> {
   )
   UserResponse getByUserId(String id);
 
+  /**
+   * Retrieves a paginated list of UserResponse objects.
+   *
+   * @param pageable Pagination information includes page number, size.
+   * @return A paginated list of UserResponse objects.
+   */
   @Query("""
              select new com.example.springproject.dto.response.UserResponse
              (u.id, u.username,u.password,u.email,u.phone,u.role)
@@ -25,6 +41,13 @@ public interface UserRepository extends BaseRepository<User> {
          """)
   Page<UserResponse> findAllShipment(Pageable pageable);
 
+  /**
+   * Searches for users based on a keyword, providing paginated results.
+   *
+   * @param pageable Pagination information.
+   * @param keyword  The keyword to search for in user attributes.
+   * @return A paginated list of UserResponse objects matching the search criteria.
+   */
   @Query("""
             select new com.example.springproject.dto.response.UserResponse
             (u.id, u.username, u.password, u.email, u.phone, u.role)

@@ -12,21 +12,27 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Base entity class serving as a template for other entities in the system.
+ * It includes common fields like id, createdBy, createdAt, and ensures the generation of a unique ID.
+ */
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
-  @Id
-  private String id;
+    @Id
+    private String id;
+    @CreatedBy
+    private String createdBy;
+    @CreatedDate
+    private Long createdAt;
 
-  @CreatedBy
-  private String createdBy;
-
-  @CreatedDate
-  private Long createdAt;
-
-  @PrePersist
-  public void ensureId() {
-    this.id = Objects.isNull(this.id) ? UUID.randomUUID().toString() : this.id;
-  }
+    /**
+     * Ensures that the entity has a valid ID before persisting.
+     * If the ID is null, generates a new UUID and assigns it to the ID field.
+     */
+    @PrePersist
+    public void ensureId() {
+        this.id = Objects.isNull(this.id) ? UUID.randomUUID().toString() : this.id;
+    }
 }
