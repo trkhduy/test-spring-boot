@@ -8,7 +8,6 @@ import com.example.springproject.repository.UserRepository;
 import com.example.springproject.security.CustomUserDetail;
 import com.example.springproject.utils.DateUtils;
 import com.example.springproject.utils.MapperUtils;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.authentication.AuthenticationManager;
